@@ -196,6 +196,15 @@ public static class SettingsUtils
 #endif
     }
     
+    public static string GetDataTableAsset(string assetName, bool fromBytes)
+    {
+        return Utility.Text.Format("Assets/GameMain/DataTables/{0}.{1}", assetName, fromBytes ? "bytes" : "txt");
+    }
+    public static string GetFontAsset(string assetName)
+    {
+        return Utility.Text.Format("Assets/GameMain/Fonts/{0}.ttf", assetName);
+    }
+    
     public static string GetConfigAsset(string assetName)
     {
         return GlobalSettings.FrameworkGlobalSettings.ConfigFolderName + assetName;

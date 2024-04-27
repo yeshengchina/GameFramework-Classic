@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using GameFramework;
 using GameMain;
+using GameMain.GameMain.Scripts.Runtime.HPBar;
+using StarForce;
 using UGFExtensions.SpriteCollection;
 using UGFExtensions.Texture;
 using UnityGameFramework.Runtime;
@@ -170,10 +172,22 @@ public class GameModule:AbsGameModuleMgr<GameModule>
         SpriteCollection = Get<SpriteCollectionComponent>();
         DataCenter = Get<DataCenterComponent>();
     }
-
-    public static void InitCustomComponents()
+    public static BuiltinDataComponent BuiltinData
     {
-        
+        get;
+        private set;
+    }
+
+    public static HPBarComponent HPBar
+    {
+        get;
+        private set;
+    }
+
+    private static void InitCustomComponents()
+    {
+        BuiltinData = UnityGameFramework.Runtime.GameEntry.GetComponent<BuiltinDataComponent>();
+        HPBar = UnityGameFramework.Runtime.GameEntry.GetComponent<HPBarComponent>();
     }
   
     private static readonly Dictionary<Type, GameFrameworkComponent> s_Components = new Dictionary<Type, GameFrameworkComponent>();

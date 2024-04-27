@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml;
 using GameFramework;
 using GameFramework.Resource;
+using StarForce;
 using UGFExtensions.Await;
 using UnityEngine;
 using UnityGameFramework.Runtime;
@@ -16,6 +17,20 @@ namespace GameMain
     /// </summary>
     public class ProcedurePreload : ProcedureBase
     {
+        public static readonly string[] DataTableNames = new string[]
+        {
+            "Aircraft",
+            "Armor",
+            "Asteroid",
+            "Entity",
+            "Music",
+            "Scene",
+            "Sound",
+            "Thruster",
+            "UIForm",
+            "UISound",
+            "Weapon",
+        };
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
 
         public override bool UseNativeDialog
@@ -102,6 +117,22 @@ namespace GameMain
         private void PreloadResources()
         {
             AwaitableExtensions.SubscribeEvent();
+            
+            // Preload configs
+            LoadConfig("DefaultConfig");
+
+            // Preload data tables
+            foreach (string dataTableName in DataTableNames)
+            {
+                LoadDataTable(dataTableName);
+            }
+
+            // Preload dictionaries
+            LoadDictionary("Default");
+
+            // Preload fonts
+            LoadFont("MainFont");
+            
             if (m_needProLoadConfig)
             {
                 LoadAllConfig();
@@ -110,6 +141,31 @@ namespace GameMain
             {
                 m_InitConfigXml = true;
             }
+        }
+
+        private void LoadFont(string fontName)
+        {
+            m_LoadedFlag.Add(Utility.Text.Format("Font.{0}", fontName), false);
+            
+            GameModule.Resource.LoadAssetAsync(fontName, typeof(Font), new LoadAssetCallbacks(
+                (assetName, asset, duration, userData) =>
+                {
+                    m_LoadedFlag[Utility.Text.Format("Font.{0}", fontName)] = true;
+                    UGuiForm.SetMainFont((Font)asset);
+                    Log.Info("Load font '{0}' OK.", fontName);
+                },
+
+                (assetName, status, errorMessage, userData) =>
+                {
+                    Log.Error("Can not load font '{0}' from '{1}' with error message '{2}'.", fontName, assetName, errorMessage);
+                }));
+        }
+
+        private void LoadDataTable(string dataTableName)
+        {
+            string dataTableAssetName = SettingsUtils.GetDataTableAsset(dataTableName, false);
+            m_LoadedFlag.Add(dataTableAssetName, false);
+            GameModule.DataTable.LoadDataTable(dataTableName, dataTableAssetName, this);
         }
 
         private void LoadAllConfig()
