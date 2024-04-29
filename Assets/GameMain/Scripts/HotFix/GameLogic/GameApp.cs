@@ -28,7 +28,7 @@ public partial class GameApp:Singleton<GameApp>
     /// </summary>
     private void StartGameLogic()
     {
-        
+        GameModule.Scene.LoadScene("Main", null);
     }
 
     /// <summary>

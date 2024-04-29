@@ -198,21 +198,23 @@ public static class SettingsUtils
     
     public static string GetDataTableAsset(string assetName, bool fromBytes)
     {
-        return Utility.Text.Format("Assets/GameMain/DataTables/{0}.{1}", assetName, fromBytes ? "bytes" : "txt");
+        return Utility.Text.Format("Assets/AssetRaw/DataTables/{0}.{1}", assetName, fromBytes ? "bytes" : "txt");
     }
     public static string GetFontAsset(string assetName)
     {
-        return Utility.Text.Format("Assets/GameMain/Fonts/{0}.ttf", assetName);
+        return Utility.Text.Format("Assets/AssetRaw/Fonts/{0}.ttf", assetName);
     }
     
-    public static string GetConfigAsset(string assetName)
+    public static string GetConfigAsset(string assetName,bool fromBytes)
     {
-        return GlobalSettings.FrameworkGlobalSettings.ConfigFolderName + assetName;
+        return Utility.Text.Format(GlobalSettings.FrameworkGlobalSettings.ConfigFolderName+"Assets/AssetRaw/Configs/{0}.{1}", assetName, fromBytes ? "bytes" : "txt" );
     }
     
     public static string GetDictionaryAsset(string assetName, bool fromBytes)
     {
-        return Utility.Text.Format("Assets/GameMain/Localization/{0}/Dictionaries/{1}.{2}",
-            GameEntry.GetComponent<LocalizationComponent>().Language.ToString(), assetName, fromBytes ? "bytes" : "xml");
+        return Utility.Text.Format("{0}-{1}",
+            assetName,GameEntry.GetComponent<LocalizationComponent>().Language.ToString());
+        // return Utility.Text.Format("Assets/AssetRaw/Localization/{0}/Dictionaries/{1}.{2}",
+        //     GameEntry.GetComponent<LocalizationComponent>().Language.ToString(), assetName, fromBytes ? "bytes" : "xml");
     }
 }

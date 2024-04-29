@@ -163,3 +163,42 @@ MonoBehaviour:
         FilterRuleName: CollectAll
         AssetTags: 
         UserData: 
+    - GroupName: DataTables
+      GroupDesc: "\u6570\u636E\u8868"
+      AssetTags: DataTables
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/AssetRaw/DataTables
+        CollectorGUID: bb7f1f0f3b88223499605b6dc23ae5f5
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
+    - GroupName: Localization
+      GroupDesc: "\u672C\u5730\u5316"
+      AssetTags: Localization
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/AssetRaw/Localization
+        CollectorGUID: efe8d9e3ddd401244a98b94c998f8345
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
+    - GroupName: DataTables2
+      GroupDesc: 
+      AssetTags: DataTables2
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/AssetRaw/DataTablesBytes
+        CollectorGUID: 46f2bdb1bf125dd45b69fc2c2b578cf8
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 

@@ -163,7 +163,8 @@ namespace GameMain
 
         private void LoadDataTable(string dataTableName)
         {
-            string dataTableAssetName = SettingsUtils.GetDataTableAsset(dataTableName, false);
+            //string dataTableAssetName = SettingsUtils.GetDataTableAsset(dataTableName, false);
+            string dataTableAssetName = dataTableName;
             m_LoadedFlag.Add(dataTableAssetName, false);
             GameModule.DataTable.LoadDataTable(dataTableName, dataTableAssetName, this);
         }
@@ -179,7 +180,8 @@ namespace GameMain
 
         private void LoadConfig(string configName)
         {
-            string configAssetName = SettingsUtils.GetConfigAsset(configName);
+            //string configAssetName = SettingsUtils.GetConfigAsset(configName,false);
+            string configAssetName = configName;
             m_LoadedFlag.Add(configAssetName, false);
             GameModule.Config.ReadData(configAssetName, this);
         }
