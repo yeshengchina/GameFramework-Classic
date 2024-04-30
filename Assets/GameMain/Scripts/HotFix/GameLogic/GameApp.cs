@@ -1,5 +1,10 @@
 using GameFramework;
+using GameFramework.Fsm;
+using GameFramework.Procedure;
+using GameLogic.GameMain.Scripts.HotFix.GameLogic;
+using GameMain;
 using UnityGameFramework.Runtime;
+using ProcedureBase = GameFramework.Procedure.ProcedureBase;
 
 public partial class GameApp:Singleton<GameApp>
 {
@@ -28,7 +33,19 @@ public partial class GameApp:Singleton<GameApp>
     /// </summary>
     private void StartGameLogic()
     {
-        GameModule.Scene.LoadScene("battle", null);
+        // 重置流程组件，初始化热更新流程。
+        GameModule.Fsm.DestroyFsm<IProcedureManager>();
+        var procedureManager = GameFrameworkEntry.GetModule<IProcedureManager>();
+        ProcedureBase[] procedures =
+        {
+            new ProcedureChangeScene(),
+            new ProcedureMain(),
+            new ProcedureMenu(),
+            new ProcedureHotfixStart(),
+        };
+        procedureManager.Initialize(GameFrameworkEntry.GetModule<IFsmManager>(), procedures);
+        
+        procedureManager.StartProcedure<ProcedureHotfixStart>();
     }
 
     /// <summary>
